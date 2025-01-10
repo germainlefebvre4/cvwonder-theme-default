@@ -8,10 +8,10 @@
     <meta name="description" content="{{ .Person.Name }}'s CV"/>
 
     <link href="/css/default.css" rel="stylesheet">
-  
+
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" media="all"/>
 
-    <link href='https://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>  
+    <link href='https://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Archivo+Black' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300' rel='stylesheet' type='text/css'>
 
@@ -27,15 +27,15 @@
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
       })(); </script>
-  
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
+
     <script>
       $(window).on('load', function() {
         $('[data-github]').each(function () {
         var _this = this;
         var repo = $(_this).data('github')
-  
+
         fetch('https://api.github.com/repos/' + repo).then(function (response) {
           return response.json();
         }).then(function (response) {
@@ -45,7 +45,7 @@
       });
       // code here
       });
-    </script>  
+    </script>
   </head>
 
   <body>
@@ -59,7 +59,7 @@
             <img src="{{ .Company.Logo }}" class="img-responsive" alt="{{ .Company.Name }}">
           {{ end }}
         </div>
-  
+
         <div class="col-xs-9">
           <div class="row">
             <div class="col-xs-12">
@@ -71,11 +71,12 @@
       </div>
 
 
+      {{- if .Abstract }}
       <div class="row section section-border">
         <div class="col-xs-3">
           <h2>Abstrait</h2>
-                </div>
-  
+        </div>
+
         <div class="col-xs-9">
           {{ range .Abstract }}
           <div class="row">
@@ -84,24 +85,56 @@
             </div>
           </div>
           {{ end }}
+        </div>
+      </div>
+      {{- end }}
 
+      {{- if .SocialNetworks }}
+      <div class="row section section-border">
+        <div class="col-xs-3">
+          <h2>Réseaux sociaux</h2>
+        </div>
+
+        <div class="col-xs-9">
           {{ if .SocialNetworks.Github }}
-          <div class="row">
-            <div class="col-xs-12">
-              <i class="fa fa-github"></i>Github : <a href="https://github.com/{{ .SocialNetworks.Github }}">{{ .SocialNetworks.Github }}</a>
+            <div class="col-xs-3">
+              <i class="fa fa-github"></i>Github<br>
+              <a href="https://github.com/{{ .SocialNetworks.Github }}">{{ .SocialNetworks.Github }}</a>
             </div>
-          </div>
+          {{ end }}
+
+          {{ if .SocialNetworks.Stackoverflow }}
+            <div class="col-xs-3">
+              <i class="fa fa-github"></i>Stackoverflow<br>
+              <a href="https://stackoverflow.com/users?search={{ .SocialNetworks.Stackoverflow }}">{{ .SocialNetworks.Stackoverflow }}</a>
+            </div>
+          {{ end }}
+
+          {{ if .SocialNetworks.Linkedin }}
+            <div class="col-xs-3">
+              <i class="fa fa-github"></i>Linkedin<br>
+              <a href="https://www.linkedin.com/in/{{ .SocialNetworks.Linkedin }}">{{ .SocialNetworks.Linkedin }}</a>
+            </div>
+          {{ end }}
+
+          {{ if .SocialNetworks.Twitter }}
+            <div class="col-xs-3">
+              <i class="fa fa-github"></i>X<br>
+              <a href="https://x.com/{{ .SocialNetworks.Twitter }}">{{ .SocialNetworks.Twitter }}</a>
+            </div>
           {{ end }}
         </div>
       </div>
+      {{- end }}
 
 
+      {{- if .Career }}
       <div class="row section section-border">
         <div class="col-xs-3">
           <h2>Dernières expériences</h2>
         </div>
 
-        
+
         <div class="col-xs-9">
           {{ range .Career }}
           <h3>
@@ -149,7 +182,7 @@
               </div>
               <div class="row">
                 <div class="col-xs-12">
-    
+
                 {{ $length := len .Description }}{{ if gt $length 0 }}
                 <b>Description :</b>
                 <ul>
@@ -164,8 +197,12 @@
           {{ end }}
         </div>
       </div>
+      {{- end }}
 
 
+      {{- if .TechnicalSkills }}
+      {{- $length := len .TechnicalSkills.List }}
+      {{- if gt $length 0 }}
       <div class="row section section-border pagebreakishere">
         <div class="col-xs-3">
           <h2>Technical skills</h2>
@@ -197,8 +234,11 @@
           {{ end }}
         </div>
       </div>
+      {{- end }}
+      {{- end }}
 
 
+      {{- if .SideProjects }}
       <div class="row section">
         <div class="col-xs-3"><h2>Open Source Projects</h2></div>
           <div class="col-xs-9">
@@ -229,8 +269,10 @@
           {{ end }}
           </div>
       </div>
+      {{- end }}
 
 
+      {{- if .Certifications }}
       <div class="row section">
         <div class="col-xs-3"><h2>Certifications</h2></div>
           <div class="col-xs-9">
@@ -250,10 +292,12 @@
           {{ end }}
           </div>
       </div>
+      {{- end }}
 
+      {{- if .Education }}
       <div class="row section">
         <div class="col-xs-3"><h2>Formation</h2></div>
-        
+
         <div class="col-xs-9">
           {{ range .Education }}
             <div class="row">
@@ -273,6 +317,7 @@
           {{ end }}
         </div>
       </div>
+      {{- end }}
 
     </div>
   </body>
