@@ -201,7 +201,7 @@
 
 
       {{- if .TechnicalSkills }}
-      {{- $length := len .TechnicalSkills.List }}
+      {{- $length := len .TechnicalSkills.Domains }}
       {{- if gt $length 0 }}
       <div class="row section section-border pagebreakishere">
         <div class="col-xs-3">
@@ -221,17 +221,6 @@
             </div>
             {{ end }}
           </div>
-
-          {{ $length := len .TechnicalSkills.List }}{{ if gt $length 0 }}
-          <div>
-            <h4><i class="fa fa-male"></i> Key competencies:</h4>
-            <ul>
-              {{ range .TechnicalSkills.List }}
-              <li>{{ .Tr }}</li>
-              {{ end }}
-            </ul>
-          </div>
-          {{ end }}
         </div>
       </div>
       {{- end }}
