@@ -3,3 +3,4 @@ name: Default
 slug: default
 description: Default theme
 author: Germain LEFEBVRE
+minimumVersion: 0.3.1
